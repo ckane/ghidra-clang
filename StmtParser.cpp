@@ -159,7 +159,7 @@ namespace ckllvm {
   class ParseStmtsAction : public PluginASTAction {
     protected:
       std::unique_ptr<ASTConsumer> CreateASTConsumer(CompilerInstance &ci, llvm::StringRef) {
-        return llvm::make_unique<ParseStmtsConsumer>(ci);
+        return std::make_unique<ParseStmtsConsumer>(ci);
       };
 
       /* At some point I may want to add cmdline args, such as if I want to test multiple
