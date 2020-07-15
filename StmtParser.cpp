@@ -14,6 +14,7 @@ namespace ckllvm {
 
   /* Helps us keep track of the name of the function currently in process. */
   std::string *cur_func = NULL;
+  std::string cur_func_name = "";
 
   /* Keep track of whether we're in a function or not. If not in a function, don't append statement
    * operators to signature string. */
@@ -52,6 +53,7 @@ namespace ckllvm {
             //llvm::errs() << "TraverseFnDecl " << fndecl->getName() << "\n";
             if(fndecl->getBody() && func_sigs.count(fndecl->getNameAsString()) == 0) {
               func_sigs.insert(std::pair<std::string,std::string>(fndecl->getNameAsString(), std::string("")));
+              cur_func_name = std::string(fndecl->getNameAsString());
               cur_func = &(func_sigs[fndecl->getNameAsString()]);
               in_func = true;
               //llvm::errs() << "top-level-decl: \"" << fndecl->getNameAsString() << "\"\n";
