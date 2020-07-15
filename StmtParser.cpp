@@ -72,6 +72,15 @@ namespace ckllvm {
             llvm::errs() << "\n";
           }
 
+          void handleCallExpr(CallExpr &s) {
+              //s.dumpColor();
+              if(s.getDirectCallee() != NULL) {
+                  llvm::outs() << "CALL: " << cur_func_name << "/" <<
+                      s.getDirectCallee()->getNameAsString() << "\n";
+
+              }
+          };
+
           /* When we encounter a C/C++ statement (code that will be compiled), the following will get executed. */
           virtual bool VisitStmt(Stmt *s) {
             //displayASTSummary(s);
@@ -134,6 +143,8 @@ namespace ckllvm {
                 llvm::outs() << "Empty op ";
                 s->dumpColor();
               }
+            } else if(in_func && CallExpr::classof(s)) {
+                handleCallExpr(*static_cast<CallExpr*>(s));
             }
             return true;
           };
