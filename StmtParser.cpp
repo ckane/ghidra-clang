@@ -150,6 +150,25 @@ namespace ckllvm {
               }
             } else if(in_func && CallExpr::classof(s)) {
                 handleCallExpr(*static_cast<CallExpr*>(s));
+            } else if(in_func && DeclStmt::classof(s)) {
+                DeclStmt *ds = static_cast<DeclStmt*>(s);
+                if(ds->isSingleDecl() && VarDecl::classof(ds->getSingleDecl())) {
+                    VarDecl *vd = static_cast<VarDecl*>(ds->getSingleDecl());
+                    if(vd->hasInit()) {
+                        cur_func->append("=");
+                        cur_func->append(",");
+                    }
+                }
+            } else if(in_func && UnaryOperator::classof(s)) {
+              UnaryOperator *us = static_cast<UnaryOperator*>(s);
+              if(us->isIncrementOp()) {
+                  cur_func->append("i");
+                  cur_func->append(",");
+              } else if(us->isDecrementOp()) {
+                  cur_func->append("d");
+                  cur_func->append(",");
+              }
+                //llvm::outs() << "Unary instr: " << ((UnaryInstruction*)s)->getOpcodeStr()  << "\n";
             }
             return true;
           };
