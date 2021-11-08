@@ -98,10 +98,8 @@ namespace ckllvm {
               BinaryOperator *bs = (BinaryOperator*)s;
               //llvm::outs() << "Class of Binary " << bs->getOpcodeStr() << "\n";
 
-              std::string op = bs->getOpcodeStr();
-              if(cur_func->size() > 1 && op != ",") {
-                cur_func->push_back(',');
-              }
+              std::string op;
+              op.insert(0, (const char *)(bs->getOpcodeStr().bytes_begin()));
 
               /* There are a number of multi-character operators. I would like to make all operators one character,
                * so that within strings they all contribute equal quantity of information.
