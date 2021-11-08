@@ -137,13 +137,13 @@ namespace ckllvm {
                 /* If a multi-byte operator is uncovered here, it means I've missed something and
                  * need to update the earlier code.
                  */
-                llvm::outs() << "Error (multi-char operator): " << op << "\n";
+                llvm::errs() << "Error (multi-char operator): " << op << "\n";
               } else if(op != "," && op.size() > 0) {
                 cur_func->append(op);
                 cur_func->append(",");
               }
               if(op.size() < 1) {
-                llvm::outs() << "Empty op ";
+                llvm::errs() << "Empty op ";
                 s->dumpColor();
               }
             } else if(in_func && CallExpr::classof(s)) {
