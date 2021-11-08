@@ -58,6 +58,9 @@ namespace ckllvm {
               in_func = true;
               //llvm::errs() << "top-level-decl: \"" << fndecl->getNameAsString() << "\"\n";
               this->TraverseStmt(fndecl->getBody());
+              if(cur_func->back() == ',') {
+                  cur_func->pop_back(); /* Remove trailing comma, if one exists */
+              }
               in_func = false;
             }
             return true;
@@ -131,6 +134,7 @@ namespace ckllvm {
                 cur_func->append(op.substr(0,1));
                 cur_func->append(",");
                 cur_func->append(op.substr(1,1));
+                cur_func->append(",");
               } else if(op.size() > 1) {
                 /* If a multi-byte operator is uncovered here, it means I've missed something and
                  * need to update the earlier code.
@@ -138,6 +142,7 @@ namespace ckllvm {
                 llvm::outs() << "Error (multi-char operator): " << op << "\n";
               } else if(op != ",") {
                 cur_func->append(op);
+                cur_func->append(",");
               }
               if(op.size() < 1) {
                 llvm::outs() << "Empty op ";
