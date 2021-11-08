@@ -138,7 +138,7 @@ namespace ckllvm {
                  * need to update the earlier code.
                  */
                 llvm::outs() << "Error (multi-char operator): " << op << "\n";
-              } else if(op != ",") {
+              } else if(op != "," && op.size() > 0) {
                 cur_func->append(op);
                 cur_func->append(",");
               }
