@@ -58,7 +58,7 @@ namespace ckllvm {
               in_func = true;
               //llvm::errs() << "top-level-decl: \"" << fndecl->getNameAsString() << "\"\n";
               this->TraverseStmt(fndecl->getBody());
-              if(cur_func->back() == ',') {
+              if(!cur_func->empty() && cur_func->back() == ',') {
                   cur_func->pop_back(); /* Remove trailing comma, if one exists */
               }
               in_func = false;
