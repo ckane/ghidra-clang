@@ -48,7 +48,7 @@ public class DecompileToC extends GhidraScript {
 
 		CppExporter cppExporter = new CppExporter();
 		List<Option> options = new ArrayList<Option>();
-		options.add(new Option(CppExporter.CREATE_HEADER_FILE, new Boolean(true)));
+		options.add(new Option(CppExporter.CREATE_HEADER_FILE, Boolean.TRUE));
 		cppExporter.setOptions(options);
 		cppExporter.setExporterServiceProvider(state.getTool());
 		cppExporter.export(outputFile, currentProgram, null, monitor);
