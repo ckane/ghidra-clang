@@ -148,6 +148,8 @@ namespace ckllvm {
               }
             } else if(in_func && CallExpr::classof(s)) {
                 handleCallExpr(*static_cast<CallExpr*>(s));
+                cur_func->append("c");
+                cur_func->append(",");
             } else if(in_func && DeclStmt::classof(s)) {
                 DeclStmt *ds = static_cast<DeclStmt*>(s);
                 if(ds->isSingleDecl() && VarDecl::classof(ds->getSingleDecl())) {
