@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 
-import ghidra.app.script.GatherParamPanel;
 import ghidra.app.script.GhidraScript;
 import ghidra.app.util.Option;
 import ghidra.app.util.exporter.CppExporter;
